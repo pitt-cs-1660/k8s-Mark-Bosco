@@ -86,17 +86,16 @@ spec:
         ports:
         - containerPort: 3306
           name: mysql
-      ##
-      # define volume mounts here, be sure to reference
-      # the PVC in your container spec
-      ##
+        # VolumeMounts inside container spec
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: mysql-persistent-storage
+      # Volumes at pod spec level
       volumes:
         - name: mysql-persistent-storage
           persistentVolumeClaim:
             claimName: mysql-pv-claim
-      volumeMounts:
-        - mountPath: /var/lib/mysql
-          name: mysql-persistent-storage
+
 ---
 ##
 # Create persistent volume claim here
